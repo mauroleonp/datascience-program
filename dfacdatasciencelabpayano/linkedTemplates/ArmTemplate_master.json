@@ -73,24 +73,6 @@
 					},
 					"linked_service_adlsdatasciencelab_properties_typeProperties_url": {
 						"value": "[parameters('linked_service_adlsdatasciencelab_properties_typeProperties_url')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "dfacdatasciencelabpayano_ArmTemplate_1",
-			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
-			"properties": {
-				"mode": "incremental",
-				"templateLink": {
-					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
-					"contentVersion": "1.0.0.0"
-				},
-				"parameters": {
-					"factoryName": {
-						"value": "[parameters('factoryName')]"
 					},
 					"TRG_EJECUTAR_EVENTO_properties_typeProperties_scope": {
 						"value": "[parameters('TRG_EJECUTAR_EVENTO_properties_typeProperties_scope')]"
@@ -103,9 +85,7 @@
 					}
 				}
 			},
-			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'dfacdatasciencelabpayano_ArmTemplate_0')]"
-			]
+			"dependsOn": []
 		}
 	]
 }
