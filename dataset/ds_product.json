@@ -1,0 +1,143 @@
+{
+	"name": "ds_product",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "linked_service_adlsdatasciencelab",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"nombre_archivo": {
+				"type": "string"
+			},
+			"nombre_directorio": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "landing/advw"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat(dataset().nombre_archivo,'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('advw/',dataset().nombre_directorio)",
+					"type": "Expression"
+				},
+				"fileSystem": "landing"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "ProductID",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "ProductNumber",
+				"type": "String"
+			},
+			{
+				"name": "MakeFlag",
+				"type": "String"
+			},
+			{
+				"name": "FinishedGoodsFlag",
+				"type": "String"
+			},
+			{
+				"name": "Color",
+				"type": "String"
+			},
+			{
+				"name": "SafetyStockLevel",
+				"type": "String"
+			},
+			{
+				"name": "ReorderPoint",
+				"type": "String"
+			},
+			{
+				"name": "StandardCost",
+				"type": "String"
+			},
+			{
+				"name": "ListPrice",
+				"type": "String"
+			},
+			{
+				"name": "Size",
+				"type": "String"
+			},
+			{
+				"name": "SizeUnitMeasureCode",
+				"type": "String"
+			},
+			{
+				"name": "WeightUnitMeasureCode",
+				"type": "String"
+			},
+			{
+				"name": "Weight",
+				"type": "String"
+			},
+			{
+				"name": "DaysToManufacture",
+				"type": "String"
+			},
+			{
+				"name": "ProductLine",
+				"type": "String"
+			},
+			{
+				"name": "Class",
+				"type": "String"
+			},
+			{
+				"name": "Style",
+				"type": "String"
+			},
+			{
+				"name": "ProductSubcategoryID",
+				"type": "String"
+			},
+			{
+				"name": "ProductModelID",
+				"type": "String"
+			},
+			{
+				"name": "SellStartDate",
+				"type": "String"
+			},
+			{
+				"name": "SellEndDate",
+				"type": "String"
+			},
+			{
+				"name": "DiscontinuedDate",
+				"type": "String"
+			},
+			{
+				"name": "rowguid",
+				"type": "String"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

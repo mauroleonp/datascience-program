@@ -1,0 +1,221 @@
+{
+	"name": "CRAW_ADVW_GRUPO04",
+	"properties": {
+		"activities": [
+			{
+				"name": "Verificar Si Existe SalesOrderHeader",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_source_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"nombre_archivo": "SalesOrderHeader",
+							"nombre_directorio": {
+								"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"exists"
+					],
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "If Archivo SalesOrderHeader Existe",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Verificar Si Existe SalesOrderHeader",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@activity('Verificar Si Existe SalesOrderHeader').output.exists",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Copia de Archivo SalesOrderHeader",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_source_csv",
+									"type": "DatasetReference",
+									"parameters": {
+										"nombre_archivo": "SalesOrderHeader",
+										"nombre_directorio": {
+											"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_source_parquet",
+									"type": "DatasetReference",
+									"parameters": {
+										"nombre_archivo": "salesorderheader",
+										"nombre_directorio": {
+											"value": "@concat('data/salesorderheader/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "Mover Archivo SalesOrderHeader",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "Copia de Archivo SalesOrderHeader",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"deleteFilesAfterCompletion": true
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_source_binary",
+									"type": "DatasetReference",
+									"parameters": {
+										"nombre_archivo": "SalesOrderHeader",
+										"nombre_directorio": {
+											"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_source_binary",
+									"type": "DatasetReference",
+									"parameters": {
+										"nombre_archivo": "SalesOrderHeader",
+										"nombre_directorio": {
+											"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"fecha_proceso": {
+				"type": "string",
+				"defaultValue": "demo"
+			}
+		},
+		"variables": {
+			"resultado": {
+				"type": "Array"
+			},
+			"nombre_path": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "01_CRAW/CRAW_ADVW"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-12T07:56:46Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

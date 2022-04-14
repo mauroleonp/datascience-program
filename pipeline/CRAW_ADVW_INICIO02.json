@@ -1,0 +1,130 @@
+{
+	"name": "CRAW_ADVW_INICIO02",
+	"properties": {
+		"activities": [
+			{
+				"name": "Carga Inicial SalesOrderHeader",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DFW_Ingesta_Inicial",
+						"type": "DataFlowReference",
+						"parameters": {
+							"fecha_proceso": {
+								"value": "'@{pipeline().parameters.fecha_proceso}'",
+								"type": "Expression"
+							}
+						},
+						"datasetParameters": {
+							"sourceSalesOrderHeader": {
+								"nombre_archivo": "SalesOrderHeader",
+								"nombre_directorio": {
+									"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+									"type": "Expression"
+								}
+							},
+							"sinkSalesOrderHeader": {
+								"nombre_archivo": "salesorderheader",
+								"nombre_directorio": {
+									"value": "@concat('data/salesorderheader')",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "Mover Archivo SalesOrderHeader",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Carga Inicial SalesOrderHeader",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"deleteFilesAfterCompletion": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_source_binary",
+						"type": "DatasetReference",
+						"parameters": {
+							"nombre_archivo": "SalesOrderHeader",
+							"nombre_directorio": {
+								"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_source_binary",
+						"type": "DatasetReference",
+						"parameters": {
+							"nombre_archivo": "SalesOrderHeader",
+							"nombre_directorio": {
+								"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"fecha_proceso": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "01_CRAW/CRAW_ADVW"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-13T01:10:11Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

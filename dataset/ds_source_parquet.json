@@ -1,0 +1,41 @@
+{
+	"name": "ds_source_parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "linked_service_adlsdatasciencelab",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"nombre_archivo": {
+				"type": "string",
+				"defaultValue": "archivo"
+			},
+			"nombre_directorio": {
+				"type": "string",
+				"defaultValue": "directorio"
+			}
+		},
+		"folder": {
+			"name": "raw/advw"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat(dataset().nombre_archivo,'.parquet')",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('advw/',dataset().nombre_directorio)",
+					"type": "Expression"
+				},
+				"fileSystem": "raw"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

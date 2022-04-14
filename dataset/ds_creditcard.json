@@ -1,0 +1,67 @@
+{
+	"name": "ds_creditcard",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "linked_service_adlsdatasciencelab",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"nombre_archivo": {
+				"type": "string"
+			},
+			"nombre_directorio": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "landing/advw"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat(dataset().nombre_archivo,'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('advw/',dataset().nombre_directorio)",
+					"type": "Expression"
+				},
+				"fileSystem": "landing"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "CreditCardID",
+				"type": "String"
+			},
+			{
+				"name": "CardType",
+				"type": "String"
+			},
+			{
+				"name": "CardNumber",
+				"type": "String"
+			},
+			{
+				"name": "ExpMonth",
+				"type": "String"
+			},
+			{
+				"name": "ExpYear",
+				"type": "String"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

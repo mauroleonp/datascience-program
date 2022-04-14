@@ -1,0 +1,196 @@
+{
+	"name": "CRAW_ADVW_GENERAL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Guardar Resultado Grupo 02",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Ejecucion Grupo 02",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "Ejecucion Grupo 03",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "resultado_grupo01",
+					"value": {
+						"value": "@concat(\n'EjecucionGrupo02',activity('Ejecucion Grupo 02').output,\n'EjecucionGrupo03',activity('Ejecucion Grupo 03').output)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Guardar Resultado Grupo 01",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Ejecucion Grupo 01",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "resultado_grupo01",
+					"value": {
+						"value": "@concat(\n'EjecucionGrupo01',activity('Ejecucion Grupo 01').output)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Guardar Resultado Grupo 04",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Ejecucion Grupo 04",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "resultado_grupo03",
+					"value": {
+						"value": "@concat(\n'EjecucionGrupo04',activity('Ejecucion Grupo 04').output)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Ejecucion Grupo 02",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Guardar Resultado Grupo 01",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "CRAW_ADVW_GRUPO02",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"fecha_proceso": {
+							"value": "@pipeline().parameters.fecha_proceso",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Ejecucion Grupo 03",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Guardar Resultado Grupo 01",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "CRAW_ADVW_GRUPO03",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"fecha_proceso": {
+							"value": "@pipeline().parameters.fecha_proceso",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Ejecucion Grupo 01",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "CRAW_ADVW_GRUPO01",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"fecha_proceso": {
+							"value": "@pipeline().parameters.fecha_proceso",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Ejecucion Grupo 04",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Guardar Resultado Grupo 02",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "CRAW_ADVW_GRUPO04",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"fecha_proceso": {
+							"value": "@pipeline().parameters.fecha_proceso",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"fecha_proceso": {
+				"type": "string",
+				"defaultValue": "demo"
+			}
+		},
+		"variables": {
+			"resultado_grupo01": {
+				"type": "String"
+			},
+			"resultado_grupo02": {
+				"type": "String"
+			},
+			"resultado_grupo03": {
+				"type": "String"
+			},
+			"resultado_final": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "01_CRAW/CRAW_ADVW"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-13T01:01:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

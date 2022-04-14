@@ -1,0 +1,46 @@
+{
+	"name": "CRDV_ADVW_CORE",
+	"properties": {
+		"activities": [
+			{
+				"name": "Proceso Raw ADVW",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [
+					{
+						"name": "entorno",
+						"value": "@pipeline().globalParameters.entorno"
+					},
+					{
+						"name": "propietario",
+						"value": "@pipeline().globalParameters.propietario"
+					}
+				],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "CRAW_ADVW_GENERAL",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"fecha_proceso": {
+							"value": "@pipeline().parameters.fecha_proceso",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"fecha_proceso": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "00_GENERAL"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-04-11T06:35:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

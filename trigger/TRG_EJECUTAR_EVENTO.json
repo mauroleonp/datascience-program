@@ -1,0 +1,25 @@
+{
+	"name": "TRG_EJECUTAR_EVENTO",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "CRAW_ADVW_GENERAL",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/data/blobs/block/",
+			"blobPathEndsWith": "block/process.blk",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/fb100a78-8de5-498a-ba78-e9ead8477e71/resourceGroups/RG_DATASCIENCE_LEON/providers/Microsoft.Storage/storageAccounts/stacdatasciencelabpayano",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
