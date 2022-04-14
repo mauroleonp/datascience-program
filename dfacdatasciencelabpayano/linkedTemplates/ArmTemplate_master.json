@@ -1,0 +1,111 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "dfacdatasciencelabpayano"
+		},
+		"linked_service_adlsdatasciencelab_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'linked_service_adlsdatasciencelab'"
+		},
+		"linked_service_blobdatasciencelab_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'linked_service_blobdatasciencelab'"
+		},
+		"linked_service_blobdatasciencelab01_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'linked_service_blobdatasciencelab01'"
+		},
+		"linked_service_adlsdatasciencelab_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stacdatasciencelabpayano.dfs.core.windows.net"
+		},
+		"TRG_EJECUTAR_EVENTO_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/fb100a78-8de5-498a-ba78-e9ead8477e71/resourceGroups/RG_DATASCIENCE_LEON/providers/Microsoft.Storage/storageAccounts/stacdatasciencelabpayano"
+		},
+		"TRG_NUEVO_EJECUTABLE_properties_CRDV_ADVW_CORE_parameters_fecha_proceso": {
+			"type": "string",
+			"defaultValue": "20220410"
+		},
+		"TRG_NUEVO_EJECUTABLE_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/fb100a78-8de5-498a-ba78-e9ead8477e71/resourceGroups/RG_DATASCIENCE_LEON/providers/Microsoft.Storage/storageAccounts/stacdatasciencelabpayano"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "dfacdatasciencelabpayano_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"linked_service_adlsdatasciencelab_accountKey": {
+						"value": "[parameters('linked_service_adlsdatasciencelab_accountKey')]"
+					},
+					"linked_service_blobdatasciencelab_connectionString": {
+						"value": "[parameters('linked_service_blobdatasciencelab_connectionString')]"
+					},
+					"linked_service_blobdatasciencelab01_connectionString": {
+						"value": "[parameters('linked_service_blobdatasciencelab01_connectionString')]"
+					},
+					"linked_service_adlsdatasciencelab_properties_typeProperties_url": {
+						"value": "[parameters('linked_service_adlsdatasciencelab_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "dfacdatasciencelabpayano_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"TRG_EJECUTAR_EVENTO_properties_typeProperties_scope": {
+						"value": "[parameters('TRG_EJECUTAR_EVENTO_properties_typeProperties_scope')]"
+					},
+					"TRG_NUEVO_EJECUTABLE_properties_CRDV_ADVW_CORE_parameters_fecha_proceso": {
+						"value": "[parameters('TRG_NUEVO_EJECUTABLE_properties_CRDV_ADVW_CORE_parameters_fecha_proceso')]"
+					},
+					"TRG_NUEVO_EJECUTABLE_properties_typeProperties_scope": {
+						"value": "[parameters('TRG_NUEVO_EJECUTABLE_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'dfacdatasciencelabpayano_ArmTemplate_0')]"
+			]
+		}
+	]
+}

@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "dfacdatasciencelabpayano"
+		},
+		"linked_service_adlsdatasciencelab_accountKey": {
+			"value": ""
+		},
+		"linked_service_blobdatasciencelab_connectionString": {
+			"value": ""
+		},
+		"linked_service_blobdatasciencelab01_connectionString": {
+			"value": ""
+		},
+		"linked_service_adlsdatasciencelab_properties_typeProperties_url": {
+			"value": "https://stacdatasciencelabpayano.dfs.core.windows.net"
+		},
+		"TRG_EJECUTAR_EVENTO_properties_typeProperties_scope": {
+			"value": "/subscriptions/fb100a78-8de5-498a-ba78-e9ead8477e71/resourceGroups/RG_DATASCIENCE_LEON/providers/Microsoft.Storage/storageAccounts/stacdatasciencelabpayano"
+		},
+		"TRG_NUEVO_EJECUTABLE_properties_CRDV_ADVW_CORE_parameters_fecha_proceso": {
+			"value": "20220410"
+		},
+		"TRG_NUEVO_EJECUTABLE_properties_typeProperties_scope": {
+			"value": "/subscriptions/fb100a78-8de5-498a-ba78-e9ead8477e71/resourceGroups/RG_DATASCIENCE_LEON/providers/Microsoft.Storage/storageAccounts/stacdatasciencelabpayano"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

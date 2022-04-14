@@ -1,0 +1,2698 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "dfacdatasciencelabpayano"
+		},
+		"TRG_EJECUTAR_EVENTO_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/fb100a78-8de5-498a-ba78-e9ead8477e71/resourceGroups/RG_DATASCIENCE_LEON/providers/Microsoft.Storage/storageAccounts/stacdatasciencelabpayano"
+		},
+		"TRG_NUEVO_EJECUTABLE_properties_CRDV_ADVW_CORE_parameters_fecha_proceso": {
+			"type": "string",
+			"defaultValue": "20220410"
+		},
+		"TRG_NUEVO_EJECUTABLE_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/fb100a78-8de5-498a-ba78-e9ead8477e71/resourceGroups/RG_DATASCIENCE_LEON/providers/Microsoft.Storage/storageAccounts/stacdatasciencelabpayano"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/CRAW_ADVW_GRUPO02')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Verificar Si Existe PersonCreditCard",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "PersonCreditCard",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Verificar Si Existe PersonPhone",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "PersonPhone",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Verificar Si Existe SalesOrderDetail",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "SalesOrderDetail",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Verificar Si Existe Product",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "Product",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Verificar Si Existe SpecialOfferProduct",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "SpecialOfferProduct",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Si Archivo PersonCreditCard",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Verificar Si Existe PersonCreditCard",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@activity('Verificar Si Existe PersonCreditCard').output.exists",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copia de Archivo PersonCreditCard",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "PersonCreditCard",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "personcreditcard",
+												"nombre_directorio": {
+													"value": "@concat('data/personcreditcard/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Mover Archivo PersonCreditCard",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copia de Archivo PersonCreditCard",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"deleteFilesAfterCompletion": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "PersonCreditCard",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "PersonCreditCard",
+												"nombre_directorio": {
+													"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Si Archivo PersonPhone",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Verificar Si Existe PersonPhone",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@activity('Verificar Si Existe PersonPhone').output.exists",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copia de Archivo PersonPhone",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "PersonPhone",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "personphone",
+												"nombre_directorio": {
+													"value": "@concat('data/personphone/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Mover Archivo PersonPhone",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copia de Archivo PersonPhone",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"deleteFilesAfterCompletion": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "PersonPhone",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "PersonPhone",
+												"nombre_directorio": {
+													"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Si Archivo Product",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Verificar Si Existe Product",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@activity('Verificar Si Existe Product').output.exists",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copia de Archivo Product",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "Product",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "product",
+												"nombre_directorio": {
+													"value": "@concat('data/product/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Mover Archivo Product",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copia de Archivo Product",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"deleteFilesAfterCompletion": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "Product",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "Product",
+												"nombre_directorio": {
+													"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Si Archivo SalesOrderDetail",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Verificar Si Existe SalesOrderDetail",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@activity('Verificar Si Existe SalesOrderDetail').output.exists",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copia de Archivo SalesOrderDetail",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "SalesOrderDetail",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "salesorderdetail",
+												"nombre_directorio": {
+													"value": "@concat('data/salesorderdetail/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Mover Archivo SalesOrderDetail",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copia de Archivo SalesOrderDetail",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"deleteFilesAfterCompletion": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "SalesOrderDetail",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "SalesOrderDetail",
+												"nombre_directorio": {
+													"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Si Archivo SpecialOfferProduct",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Verificar Si Existe SpecialOfferProduct",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@activity('Verificar Si Existe SpecialOfferProduct').output.exists",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copia de Archivo SpecialOfferProduct",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "SpecialOfferProduct",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "specialofferproduct",
+												"nombre_directorio": {
+													"value": "@concat('data/specialofferproduct/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Mover Archivo SpecialOfferProduct",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copia de Archivo SpecialOfferProduct",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"deleteFilesAfterCompletion": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "SpecialOfferProduct",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "SpecialOfferProduct",
+												"nombre_directorio": {
+													"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"fecha_proceso": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "01_CRAW/CRAW_ADVW"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-04-12T07:56:46Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CRAW_ADVW_GRUPO03')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Verificar Si Existe CreditCard",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "CreditCard",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Si Archivo CreditCard Existe",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Verificar Si Existe CreditCard",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@activity('Verificar Si Existe CreditCard').output.exists",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copia de Archivo CreditCard",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "CreditCard",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "creditcard",
+												"nombre_directorio": {
+													"value": "@concat('data/creditcard/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Mover Archivo CreditCard",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copia de Archivo CreditCard",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"deleteFilesAfterCompletion": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "CreditCard",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "CreditCard",
+												"nombre_directorio": {
+													"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Verificar Si Existe Customer",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "Customer",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Verificar Si Existe EmailAddress",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "EmailAddress",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Verificar Si Existe Person",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "Person",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Si Archivo EmailAddress Existe",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Verificar Si Existe EmailAddress",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@activity('Verificar Si Existe EmailAddress').output.exists",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copia de Archivo EmailAddress",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "EmailAddress",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "emailaddress",
+												"nombre_directorio": {
+													"value": "@concat('data/emailaddress/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Mover Archivo EmailAddress",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copia de Archivo EmailAddress",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"deleteFilesAfterCompletion": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "EmailAddress",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "EmailAddress",
+												"nombre_directorio": {
+													"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Si Archivo Person Existe",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Verificar Si Existe Person",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@activity('Verificar Si Existe Person').output.exists",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copia de Archivo Person",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "Person",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "person",
+												"nombre_directorio": {
+													"value": "@concat('data/person/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Mover Archivo Person",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copia de Archivo Person",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"deleteFilesAfterCompletion": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "Person",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "Person",
+												"nombre_directorio": {
+													"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Si Archivo Customer Existe",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Verificar Si Existe Customer",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@activity('Verificar Si Existe Customer').output.exists",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copia de Archivo Customer",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "Customer",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "customer",
+												"nombre_directorio": {
+													"value": "@concat('data/customer/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Mover Archivo Customer",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copia de Archivo Customer",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"deleteFilesAfterCompletion": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "Customer",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "Customer",
+												"nombre_directorio": {
+													"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"fecha_proceso": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "01_CRAW/CRAW_ADVW"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-04-12T07:56:46Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CRAW_ADVW_GRUPO04')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Verificar Si Existe SalesOrderHeader",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "SalesOrderHeader",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "If Archivo SalesOrderHeader Existe",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Verificar Si Existe SalesOrderHeader",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@activity('Verificar Si Existe SalesOrderHeader').output.exists",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copia de Archivo SalesOrderHeader",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_csv",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "SalesOrderHeader",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_parquet",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "salesorderheader",
+												"nombre_directorio": {
+													"value": "@concat('data/salesorderheader/','Year=',\nsubstring(pipeline().parameters.fecha_proceso, 0, 4),\n'/Month=',\nsubstring(pipeline().parameters.fecha_proceso, 4, 2))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Mover Archivo SalesOrderHeader",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copia de Archivo SalesOrderHeader",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"deleteFilesAfterCompletion": true
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "SalesOrderHeader",
+												"nombre_directorio": {
+													"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_source_binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"nombre_archivo": "SalesOrderHeader",
+												"nombre_directorio": {
+													"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"fecha_proceso": {
+						"type": "string",
+						"defaultValue": "demo"
+					}
+				},
+				"variables": {
+					"resultado": {
+						"type": "Array"
+					},
+					"nombre_path": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "01_CRAW/CRAW_ADVW"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-04-12T07:56:46Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "CreditCard",
+									"nombre_directorio": {
+										"value": "@concat('data/20220410')",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_source_parquet",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "creditcard",
+									"nombre_directorio": {
+										"value": "@concat('data/creditcard/','Year=',\nsubstring('20220410', 0, 4),\n'Month=',\nsubstring('20220410', 4, 2))",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"variables": {
+					"resultado": {
+						"type": "Array"
+					}
+				},
+				"folder": {
+					"name": "10_UTILITARIO"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-04-11T04:00:52Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DFW_Ingesta_Inicial')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_salesorderheader",
+								"type": "DatasetReference"
+							},
+							"name": "sourceSalesOrderHeader"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ds_source_parquet",
+								"type": "DatasetReference"
+							},
+							"name": "sinkSalesOrderHeader"
+						}
+					],
+					"transformations": [
+						{
+							"name": "AddColumnSalesOrderHeader"
+						}
+					],
+					"scriptLines": [
+						"parameters{",
+						"     fecha_proceso as string",
+						"}",
+						"source(output(",
+						"          SalesOrderID as string,",
+						"          RevisionNumber as string,",
+						"          OrderDate as timestamp,",
+						"          DueDate as timestamp,",
+						"          ShipDate as timestamp,",
+						"          Status as string,",
+						"          OnlineOrderFlag as string,",
+						"          SalesOrderNumber as string,",
+						"          PurchaseOrderNumber as string,",
+						"          AccountNumber as string,",
+						"          CustomerID as string,",
+						"          SalesPersonID as string,",
+						"          TerritoryID as string,",
+						"          BillToAddressID as string,",
+						"          ShipToAddressID as string,",
+						"          ShipMethodID as string,",
+						"          CreditCardID as string,",
+						"          CreditCardApprovalCode as string,",
+						"          CurrencyRateID as string,",
+						"          SubTotal as string,",
+						"          TaxAmt as string,",
+						"          Freight as string,",
+						"          TotalDue as string,",
+						"          Comment as string,",
+						"          rowguid as string,",
+						"          ModifiedDate as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> sourceSalesOrderHeader",
+						"sourceSalesOrderHeader derive(Month = month(OrderDate),",
+						"          Year = year(OrderDate),",
+						"     partitionBy('key',",
+						"          0,",
+						"          Year,",
+						"          Month",
+						"     )) ~> AddColumnSalesOrderHeader",
+						"AddColumnSalesOrderHeader sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     filePattern:'salesorderheader',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     saveOrder: 1,",
+						"     partitionBy('key',",
+						"          0,",
+						"          Year,",
+						"          Month",
+						"     )) ~> sinkSalesOrderHeader"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CRAW_ADVW_GENERAL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Guardar Resultado Grupo 02",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Ejecucion Grupo 02",
+								"dependencyConditions": [
+									"Completed"
+								]
+							},
+							{
+								"activity": "Ejecucion Grupo 03",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "resultado_grupo01",
+							"value": {
+								"value": "@concat(\n'EjecucionGrupo02',activity('Ejecucion Grupo 02').output,\n'EjecucionGrupo03',activity('Ejecucion Grupo 03').output)",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Guardar Resultado Grupo 01",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Ejecucion Grupo 01",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "resultado_grupo01",
+							"value": {
+								"value": "@concat(\n'EjecucionGrupo01',activity('Ejecucion Grupo 01').output)",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Guardar Resultado Grupo 04",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Ejecucion Grupo 04",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "resultado_grupo03",
+							"value": {
+								"value": "@concat(\n'EjecucionGrupo04',activity('Ejecucion Grupo 04').output)",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Ejecucion Grupo 02",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Guardar Resultado Grupo 01",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "CRAW_ADVW_GRUPO02",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"fecha_proceso": {
+									"value": "@pipeline().parameters.fecha_proceso",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					{
+						"name": "Ejecucion Grupo 03",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Guardar Resultado Grupo 01",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "CRAW_ADVW_GRUPO03",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"fecha_proceso": {
+									"value": "@pipeline().parameters.fecha_proceso",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					{
+						"name": "Ejecucion Grupo 01",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "CRAW_ADVW_GRUPO01",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"fecha_proceso": {
+									"value": "@pipeline().parameters.fecha_proceso",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					{
+						"name": "Ejecucion Grupo 04",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Guardar Resultado Grupo 02",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "CRAW_ADVW_GRUPO04",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"fecha_proceso": {
+									"value": "@pipeline().parameters.fecha_proceso",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"fecha_proceso": {
+						"type": "string",
+						"defaultValue": "demo"
+					}
+				},
+				"variables": {
+					"resultado_grupo01": {
+						"type": "String"
+					},
+					"resultado_grupo02": {
+						"type": "String"
+					},
+					"resultado_grupo03": {
+						"type": "String"
+					},
+					"resultado_final": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "01_CRAW/CRAW_ADVW"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-04-13T01:01:33Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/CRAW_ADVW_GRUPO02')]",
+				"[concat(variables('factoryId'), '/pipelines/CRAW_ADVW_GRUPO03')]",
+				"[concat(variables('factoryId'), '/pipelines/CRAW_ADVW_GRUPO04')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CRAW_ADVW_INICIO02')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Carga Inicial SalesOrderHeader",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DFW_Ingesta_Inicial",
+								"type": "DataFlowReference",
+								"parameters": {
+									"fecha_proceso": {
+										"value": "'@{pipeline().parameters.fecha_proceso}'",
+										"type": "Expression"
+									}
+								},
+								"datasetParameters": {
+									"sourceSalesOrderHeader": {
+										"nombre_archivo": "SalesOrderHeader",
+										"nombre_directorio": {
+											"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+											"type": "Expression"
+										}
+									},
+									"sinkSalesOrderHeader": {
+										"nombre_archivo": "salesorderheader",
+										"nombre_directorio": {
+											"value": "@concat('data/salesorderheader')",
+											"type": "Expression"
+										}
+									}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "Mover Archivo SalesOrderHeader",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Carga Inicial SalesOrderHeader",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"deleteFilesAfterCompletion": true
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings"
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_source_binary",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "SalesOrderHeader",
+									"nombre_directorio": {
+										"value": "@concat('data/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_source_binary",
+								"type": "DatasetReference",
+								"parameters": {
+									"nombre_archivo": "SalesOrderHeader",
+									"nombre_directorio": {
+										"value": "@concat('archive/',pipeline().parameters.fecha_proceso)",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"fecha_proceso": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "01_CRAW/CRAW_ADVW"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-04-13T01:10:11Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/DFW_Ingesta_Inicial')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CRDV_ADVW_CORE')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Proceso Raw ADVW",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [
+							{
+								"name": "entorno",
+								"value": "@pipeline().globalParameters.entorno"
+							},
+							{
+								"name": "propietario",
+								"value": "@pipeline().globalParameters.propietario"
+							}
+						],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "CRAW_ADVW_GENERAL",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"fecha_proceso": {
+									"value": "@pipeline().parameters.fecha_proceso",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"fecha_proceso": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "00_GENERAL"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-04-11T06:35:14Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/CRAW_ADVW_GENERAL')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TRG_EJECUTAR_EVENTO')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "CRAW_ADVW_GENERAL",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/data/blobs/block/",
+					"blobPathEndsWith": "block/process.blk",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('TRG_EJECUTAR_EVENTO_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/CRAW_ADVW_GENERAL')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TRG_NUEVO_EJECUTABLE')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "CRDV_ADVW_CORE",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"fecha_proceso": "[parameters('TRG_NUEVO_EJECUTABLE_properties_CRDV_ADVW_CORE_parameters_fecha_proceso')]"
+						}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/raw/blobs/advw/data/block/",
+					"blobPathEndsWith": ".blk",
+					"ignoreEmptyBlobs": false,
+					"scope": "[parameters('TRG_NUEVO_EJECUTABLE_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/CRDV_ADVW_CORE')]"
+			]
+		}
+	]
+}

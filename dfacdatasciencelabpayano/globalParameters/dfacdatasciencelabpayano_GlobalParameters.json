@@ -1,0 +1,10 @@
+{
+	"entorno": {
+		"type": "string",
+		"value": "desarrollo"
+	},
+	"propietario": {
+		"type": "string",
+		"value": "up"
+	}
+}
