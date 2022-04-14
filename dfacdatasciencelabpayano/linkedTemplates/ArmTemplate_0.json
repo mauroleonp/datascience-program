@@ -3629,7 +3629,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/CRAW_ADVW_INICIO02')]",
+			"name": "[concat(parameters('factoryName'), '/CRAW_ADVW_CARGAINICIAL')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
