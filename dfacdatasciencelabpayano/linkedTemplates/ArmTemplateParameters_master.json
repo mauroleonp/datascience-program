@@ -11,9 +11,6 @@
 		"linked_service_blobdatasciencelab_connectionString": {
 			"value": ""
 		},
-		"linked_service_blobdatasciencelab01_connectionString": {
-			"value": ""
-		},
 		"linked_service_adlsdatasciencelab_properties_typeProperties_url": {
 			"value": "https://stacdatasciencelabpayano.dfs.core.windows.net"
 		},

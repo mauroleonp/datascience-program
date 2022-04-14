@@ -15,10 +15,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'linked_service_blobdatasciencelab'"
 		},
-		"linked_service_blobdatasciencelab01_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'linked_service_blobdatasciencelab01'"
-		},
 		"linked_service_adlsdatasciencelab_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://stacdatasciencelabpayano.dfs.core.windows.net"
@@ -3732,25 +3728,12 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/linked_service_blobdatasciencelab01')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('linked_service_blobdatasciencelab01_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/TRG_EJECUTAR_EVENTO')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
