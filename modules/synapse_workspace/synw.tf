@@ -30,6 +30,16 @@ resource "azurerm_synapse_workspace" "ws" {
     sql_administrator_login_password = random_password.sql_admin.0.result
     managed_virtual_network_enabled = false
     managed_resource_group_name = "rg-${var.settings.application}-synw${random_string.random_suffix.result}-${var.settings.location}-001"
+    dynamic github_repo {
+      for_each = try(var.github_repo, null) != null ? [var.github_repo] : []
+      content {
+        account_name = "${var.github_repo.account_name}"
+        branch_name = "${var.github_repo.branch_name}"
+        repository_name = "${var.github_repo.repository_name}"
+        root_folder = "/synapse_workspace"
+        git_url = "${var.github_repo.git_url}"
+      }
+    }
     identity {
       type = "SystemAssigned"
     }
